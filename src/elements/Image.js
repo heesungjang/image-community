@@ -1,34 +1,42 @@
+import styled from 'styled-components';
 import React from "react";
-import styled from "styled-components";
 
 const Image = (props) => {
-    const { shape, src, size } = props;
+    const {shape, src, size} = props;
 
     const styles = {
-        src,
-        size,
-    };
+        src: src,
+        size: size,
+    }
 
-    if (shape === "circle") {
-        return <ImageCircle {...styles}></ImageCircle>;
-    }
-    if (shape === "rectangle") {
+    if(shape === "circle"){
         return (
-            <AspectOuter>
-                <AspectInner {...styles}></AspectInner>
-            </AspectOuter>
-        );
+            <ImageCircle {...styles}></ImageCircle>
+        )
     }
-    return <React.Fragment></React.Fragment>;
-};
+
+    if(shape === "rectangle"){
+        return (
+            <AspectOutter>
+                <AspectInner {...styles}></AspectInner>
+            </AspectOutter>
+        )
+    }
+
+    return (
+        <React.Fragment>
+            
+        </React.Fragment>
+    )
+}
 
 Image.defaultProps = {
-    shape: "circle",
-    src: "https://www.proximus.be/dam/jcr:09204cf9-7c35-4c11-8a4e-7ae60128befd/cdn/sites/iportal/images/blogs/articles/res/instagram-influencers-blog-en~2020-06-11-08-24-57~cache.jpg",
-    size: 36,
+  shape: "circle",
+  src: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
+  size: 36,
 };
 
-const AspectOuter = styled.div`
+const AspectOutter = styled.div`
     width: 100%;
     min-width: 250px;
 `;
@@ -48,7 +56,6 @@ const ImageCircle = styled.div`
     border-radius: var(--size);
 
     background-image: url("${(props) => props.src}");
-
     background-size: cover;
     margin: 4px;
 `;

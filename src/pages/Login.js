@@ -1,72 +1,72 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, Input, Grid, Button } from "../elements";
-// import { createCookie, getCookie } from "../shared/Cookie";
+import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
 const Login = (props) => {
-    const dispatch = useDispatch();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-    const handleSubmit = () => {
-        if (username === "" || password === "") {
-            window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
-            return;
-        }
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
 
-        dispatch(userActions.loginFB(username, password));
-    };
-    const handleChange = (e) => {
-        const {
-            target: { name, value },
-        } = e;
+  const login = () => {
 
-        if (name === "아이디") {
-            setUsername(value);
-        } else {
-            setPassword(value);
-        }
-    };
-    return (
-        <React.Fragment>
-            <Grid padding="16px">
-                <Text size="32px" bold>
-                    로그인
-                </Text>
+    console.log(id);
 
-                <Grid padding="16px 0px">
-                    <Input
-                        label="아이디"
-                        handleChange={handleChange}
-                        value={username}
-                        username={username}
-                        placeholder="아이디를 입력해주세요."
-                        _onChange={(event) => {
-                            console.log(event.target.value);
-                        }}
-                    />
-                </Grid>
+    if(id === "" || pwd === ""){
+      window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
+      return;
+    }
 
-                <Grid padding="16px 0px">
-                    <Input
-                        type="password"
-                        label="패스워드"
-                        handleChange={handleChange}
-                        value={password}
-                        password={password}
-                        placeholder="패스워드 입력해주세요."
-                        _onChange={(event) => {
-                            console.log(event);
-                        }}
-                    />
-                </Grid>
+    if(!emailCheck(id)){
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
 
-                <Button text="로그인하기" handleSubmit={handleSubmit}></Button>
-            </Grid>
-        </React.Fragment>
-    );
+    dispatch(userActions.loginFB(id, pwd));
+  };
+
+  return (
+    <React.Fragment>
+      <Grid padding="16px">
+        <Text size="32px" bold>
+          로그인
+        </Text>
+
+        <Grid padding="16px 0px">
+          <Input
+            label="아이디"
+            placeholder="아이디를 입력해주세요."
+            _onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
+        </Grid>
+
+        <Grid padding="16px 0px">
+          <Input
+            label="패스워드"
+            placeholder="패스워드 입력해주세요."
+            type="password"
+            _onChange={(e) => {
+              setPwd(e.target.value);
+            }}
+          />
+        </Grid>
+
+        <Button
+          text="로그인하기"
+          _onClick={() => {
+            console.log("로그인 했어!");
+            login();
+          }}
+        ></Button>
+      </Grid>
+    </React.Fragment>
+  );
 };
 
 export default Login;

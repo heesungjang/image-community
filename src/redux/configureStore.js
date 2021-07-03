@@ -1,18 +1,19 @@
-import thunk from "redux-thunk";
-import { connectRouter } from "connected-react-router";
-import { createBrowserHistory } from "history";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { createBrowserHistory } from "history";
+import { connectRouter } from "connected-react-router";
 
 import User from "./modules/user";
+import Post from "./modules/post";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
     user: User,
+    post: Post,
     router: connectRouter(history),
 });
 
-// const middlewares = [thunk];
 const middlewares = [thunk.withExtraArgument({ history: history })];
 
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
@@ -32,6 +33,7 @@ const composeEnhancers =
         : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+
 let store = (initialStore) => createStore(rootReducer, enhancer);
 
 export default store();
