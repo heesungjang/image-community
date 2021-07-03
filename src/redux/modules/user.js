@@ -106,7 +106,7 @@ const logoutFB = () => {
             // eslint-disable-next-line no-lone-blocks
             {
                 dispatch(logOut());
-                history.replace("/");
+                history.replace("/login");
             }
         });
     };
