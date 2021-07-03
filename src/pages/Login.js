@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, Input, Grid, Button } from "../elements";
-import { createCookie, getCookie } from "../shared/Cookie";
+// import { createCookie, getCookie } from "../shared/Cookie";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -10,9 +10,7 @@ const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = () => {
-        dispatch(userActions.loginAction({ username: "perl" }));
-    };
+    const handleSubmit = () => {};
     const handleChange = (e) => {
         const {
             target: { name, value },

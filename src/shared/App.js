@@ -1,7 +1,7 @@
 import React from "react";
 import { history } from "../redux/configureStore";
 import { ConnectedRouter } from "connected-react-router";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import { Grid } from "../elements";
 import Login from "../pages/Login";

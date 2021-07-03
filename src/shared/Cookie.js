@@ -16,7 +16,7 @@ export const storeCookie = (name, value, exp = 5) => {
 
 export const deleteCookie = (user) => {
     let date = new Date("2020-01-01").toUTCString();
-    document.cookie = "Password" + "=; expires=" + date;
+    document.cookie = "Password=; expires=" + date;
     document.cookie = user + "=; expires=" + date;
 };
 
