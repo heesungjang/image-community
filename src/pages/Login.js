@@ -10,7 +10,14 @@ const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = () => {};
+    const handleSubmit = () => {
+        if (username === "" || password === "") {
+            window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
+            return;
+        }
+
+        dispatch(userActions.loginFB(username, password));
+    };
     const handleChange = (e) => {
         const {
             target: { name, value },
@@ -44,6 +51,7 @@ const Login = (props) => {
 
                 <Grid padding="16px 0px">
                     <Input
+                        type="password"
                         label="패스워드"
                         handleChange={handleChange}
                         value={password}

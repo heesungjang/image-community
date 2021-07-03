@@ -52,7 +52,24 @@ const signupFB = (id, pwd, username) => {
 };
 
 const loginFB = (id, pwd) => {
-    return function (dispatch, getState, { history }) {};
+    return function (dispatch, getState, { history }) {
+        auth.signInWithEmailAndPassword(id, pwd)
+            .then((user) => {
+                console.log(user);
+                dispatch(
+                    setUser({
+                        username: user.user.displayName,
+                        id,
+                        user_profile: "",
+                    })
+                );
+                history.push("/");
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+    };
 };
 
 // reducers
@@ -80,6 +97,7 @@ const actionCreators = {
     logOut,
     getUser,
     signupFB,
+    loginFB,
 };
 
 export { actionCreators };
