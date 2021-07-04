@@ -9,7 +9,9 @@ const PostList = (props) => {
     const post_list = useSelector((state) => state.post.list);
 
     useEffect(() => {
-        dispatch(postActions.getPostFB());
+        if (post_list.length === 0) {
+            dispatch(postActions.getPostFB());
+        }
     }, []);
     return (
         <React.Fragment>
